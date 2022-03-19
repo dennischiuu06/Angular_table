@@ -1,0 +1,37 @@
+<div class="container" role="main">
+  <div class="title">
+    <h1>Table</h1>
+  </div>
+  <div class="table-responsive rounded bg-light p-4">
+    <div class="mb-2">
+      <p>Test Table</p>
+    </div>
+    <table class="table table-hover">
+      <thead class="table-borderless table-secondary">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">First</th>
+          <th scope="col">Last</th>
+          <th scope="col">Handle</th>
+          <th scope="col">Action</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of dataSource">
+          <td>{{ data.id }}</td>
+          <td>{{ data.title }}</td>
+          <td>{{ data.number }}</td>
+          <td>{{ data.date }}</td>
+          <td>
+            <a href="/edit/{{data.id}}" type="button" class="btn btn-success btn-sm text-white mr-2">Edit</a>
+            
+            <button (click)="deleteButtonHandler(data.id)" type="button" class="btn btn-danger btn-sm">Delete</button>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+
+  </div>
+</div>

@@ -1,0 +1,44 @@
+
+<div class="ui raised segment">
+  <mat-form-field class="example-chip-list" appearance="fill">
+    <mat-label>Favorite Fruits</mat-label>
+    <mat-chip-list #chipList aria-label="Fruit selection">
+      <input placeholder="New fruit..."
+             [matChipInputFor]="chipList"
+             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+             [matChipInputAddOnBlur]="addOnBlur">
+    </mat-chip-list>
+    
+  </mat-form-field>
+    <h2 class="ui header">Search for Bus</h2>
+    <form [formGroup]="searchBusForm" (ngSubmit)="onSubmit(searchBusForm.value)" class="ui form">
+      <div class="field">
+        <label for="searchKey">{{ searchType }}</label>
+        <input type="text" 
+          id="searchKey" 
+          formControlName="searchKey">
+      </div>
+  
+      <button type="submit" class="ui button">Submit</button>
+    </form>
+
+    <div>{{ serverData | json }}</div>
+
+    <p></p>
+    <table border="1">
+        <tr>
+            <th>Route</th>
+            <th>Fare</th>
+            <th>Start Point</th>
+            <th>End Point</th>  
+        </tr>
+
+        <tr *ngFor="let bus of serverDataArr">
+            <td>{{ bus.routeNumber }}</td>
+            <td>{{ bus.fare }}</td>
+            <td>{{ bus.startPoint }}</td>
+            <td>{{ bus.endPoint }}</td>
+            <td><button (click)="deleteButtonHandler(bus.routeNumber)">Delete</button></td>
+        </tr>
+    </table>
+  </div>
