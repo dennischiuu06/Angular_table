@@ -1,13 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {MatChipInputEvent} from '@angular/material/chips';
-
-
-export interface Fruit {
-  name: string;
-}
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { MatChipInputEvent } from '@angular/material/chips';
 
 @Component({
   selector: 'app-search-panel',
@@ -17,32 +12,32 @@ export interface Fruit {
 
 
 export class SearchPanelComponent implements OnInit {
-  searchBusForm: FormGroup;
+
+  searchSoccerPitches: FormGroup;
   @Input() searchType!: string;
   http: HttpClient;
   serverData!: Object | null;
   url!: string;
   serverDataArr: any;
-  busRecord: BusRecord = {
-    routeNumber: "",
-    fare: "",
-    startPoint: "",
-    endPoint: ""
-  };
-  
+  // SoccerPitchesRecord: PitchesRecord = {
+  //   district: "",
+  //   address: "",
+  //   courtNumber: "",
+  //   opening_hours: ""
+  // };
+
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
-  fruits: Fruit[] = [{name: 'Lemon'}, {name: 'Lime'}, {name: 'Apple'}];
 
-  constructor(fb: FormBuilder, http: HttpClient) { 
+  constructor(fb: FormBuilder, http: HttpClient) {
     this.http = http;
-    this.searchBusForm = fb.group(
+    this.searchSoccerPitches = fb.group(
       {
-        'searchKey': []
+        'searchDistrict': []
       }
     );
   }
-  
+
 
   ngOnInit(): void {
   }
@@ -51,52 +46,68 @@ export class SearchPanelComponent implements OnInit {
     console.log(formValue);
     this.serverData = null;
 
+    this.url = "http://localhost/php/index.php/football/" + formValue['searchDistrict'];
 
-    if (this.searchType==="By Route") {
-      this.url = "http://localhost/getBusByRoute.php?routeNumber=" + formValue['searchKey'];
-    } else if (this.searchType==="By Fare") {
-      this.url = "http://localhost/getBusByFare.php?fare=" + formValue['searchKey'];
-    } else if (this.searchType==="By Start Point") {
-      this.url = "http://localhost/getBusByStartPoint.php?startPoint=" + formValue['searchKey'];
-    } else if (this.searchType==="By End Point") {
-      this.url = "http://localhost/getBusByEndPoint.php?endPoint=" + formValue['searchKey'];
-    } 
-    
-    this.http.get(this.url).subscribe(
-      {
+
+    this.http.get(this.url).subscribe({
         next: (res) => {
-          this.serverData = res; 
+          console.log(res);
+          console.log(formValue['searchDistrict']);
+          this.serverData = res;
           this.serverDataArr = JSON.parse(JSON.stringify(res))
         },
         error: (err) => {
-          this.serverData = "Failed to call server: " + err;
-        }        
+          this.serverData = "http://localhost/php/index.php/football/" + formValue['searchDistrict'];
+        }
       }
     );
   }
-
-  @Output() deleteEvent = new EventEmitter<BusRecord>();
   
-  deleteButtonHandler(routeNumber: string) {
-    console.log("SEARCH: deleteButtonHandler/" + routeNumber);
-    for (let bus of this.serverDataArr) {
-      if (bus.routeNumber === routeNumber) {
-        this.busRecord.routeNumber = bus.routeNumber;
-        this.busRecord.fare = bus.fare;
-        this.busRecord.startPoint = bus.startPoint;
-        this.busRecord.endPoint = bus.endPoint;
-        break;
-      }
+  retrieveButtonHandler(): void {
+    this.serverData = null;
+
+    this.url = "http://localhost/php/index.php/football/selectAll";
+
+    this.http.get(this.url).subscribe({
+        next: (res) => {
+          console.log(res);
+          this.serverData = res;
+          this.serverDataArr = JSON.parse(JSON.stringify(res))
+        },
+        error: (err) => {
+          this.serverData = "http://localhost/php/index.php/football/selectAll";
+        }
+      });
     }
 
-    this.deleteEvent.emit(this.busRecord);
-  }
+ // @Output() deleteEvent = new EventEmitter<PitchesRecord>();
 
+  deleteButtonHandler(routeNumber: string) {
+    console.log("SEARCH: deleteButtonHandler/" + routeNumber);
+
+    this.serverData = null;
+    this.url = "http://localhost/php/index.php/football/" + routeNumber;
+
+    this.http.delete(this.url).subscribe(
+      {
+        next: (res) => {
+          this.serverData = res;
+          this.serverDataArr = JSON.parse(JSON.stringify(res))
+          this.retrieveButtonHandler();
+        },
+        error: (err) => {
+          this.serverData = "Failed to call server: " + err;
+        }
+      }
+    );
+
+    // this.deleteEvent.emit(this.SoccerPitchesRecord);
+  }
 }
 
-export interface BusRecord {
-  routeNumber: string, 
-  fare: string, 
-  startPoint: string,
-  endPoint: string
+export interface PitchesRecord {
+  district: string,
+  address: string,
+  courtNumber: string,
+  opening_hours: string
 }

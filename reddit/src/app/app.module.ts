@@ -7,7 +7,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { SearchPanelComponent } from './search-panel/search-panel.component';
-import { TableListComponent } from './table-list/table-list.component';
 
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatBadgeModule} from '@angular/material/badge';
@@ -51,7 +50,6 @@ import { SearchExampleComponent } from './search-example/search-example.componen
   declarations: [
     AppComponent,
     SearchPanelComponent,
-    TableListComponent,
     SearchExampleComponent
   ],
   imports: [

@@ -1,37 +1,83 @@
-<div class="container" role="main">
-  <div class="title">
-    <h1>Table</h1>
-  </div>
-  <div class="table-responsive rounded bg-light p-4">
-    <div class="mb-2">
-      <p>Test Table</p>
+<!-- 
+<div class="ui raised segment">
+  <mat-form-field class="example-chip-list" appearance="fill">
+    <mat-label>Favorite Fruits</mat-label>
+    <mat-chip-list #chipList aria-label="Fruit selection">
+      <input placeholder="New fruit..."
+             [matChipInputFor]="chipList"
+             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+             [matChipInputAddOnBlur]="addOnBlur">
+    </mat-chip-list>
+    
+  </mat-form-field>
+    <h2 class="ui header">Teseseeseset</h2>
+    <form [formGroup]="searchBusForm" (ngSubmit)="onSubmit(searchBusForm.value)" class="ui form">
+      <div class="field">
+        <label for="searchKey">{{ searchType }}</label>
+
+        <div class="search-box">
+          <i class="material-icons">&#xE8B6;</i>
+          <input type="search" class="form-control mr-sm-2" placeholder="Search Any Location/District" aria-label="Search"
+            aria-describedby="button-addon2" id="searchKey"  formControlName="searchKey">
+        </div>
+
+      </div>
+      
+  
+      <button type="submit" class="ui button">Submit</button>
+
+    </form>
+
+    <div>{{ serverData | json }}</div>
+
+    <p></p>
+  </div> -->
+
+  <div class="ui raised segment">
+    <h2 class="ui header">Create a new bus route</h2>
+    <form 
+        [formGroup]="createBusForm"
+        (ngSubmit)="onSubmitAdd(createBusForm.value)"
+        class="ui form">
+      <div class="field">
+        <label for="addDistrictKey">addDistrictKey</label>
+        <input type="text" 
+          id="addDistrictKey" 
+          formControlName="addDistrictKey">
+      </div>
+      <div class="field">
+        <label for="addNameKey">addNameKey</label>
+        <input type="text" 
+          id="addNameKey" 
+          placeholder=""
+          formControlName="addNameKey">
+      </div>
+
+      <div class="field">
+        <label for="addAddressKey">addAddressKey</label>
+        <input type="text" 
+          id="addAddressKey" 
+          placeholder=""
+          formControlName="addAddressKey">
+      </div>
+      
+      <div class="field">
+        <label for="addHoursKey">addHoursKey</label>
+        <input type="text" 
+          id="addHoursKey" 
+          placeholder=""
+          formControlName="addHoursKey">
+      </div>
+      <button type="submit" class="ui button">Submit</button>
+    </form>
+
+    <div>
+        {{ serverData | json }}
     </div>
-    <table class="table table-hover">
-      <thead class="table-borderless table-secondary">
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">First</th>
-          <th scope="col">Last</th>
-          <th scope="col">Handle</th>
-          <th scope="col">Action</th>
-
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let data of dataSource">
-          <td>{{ data.id }}</td>
-          <td>{{ data.title }}</td>
-          <td>{{ data.number }}</td>
-          <td>{{ data.date }}</td>
-          <td>
-            <a href="/edit/{{data.id}}" type="button" class="btn btn-success btn-sm text-white mr-2">Edit</a>
-            
-            <button (click)="deleteButtonHandler(data.id)" type="button" class="btn btn-danger btn-sm">Delete</button>
-          </td>
-        </tr>
-
-      </tbody>
-    </table>
-
-  </div>
 </div>
+
+
+
+
+
+  
