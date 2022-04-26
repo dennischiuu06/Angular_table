@@ -5,67 +5,133 @@
         <h2 style="font-size: 24px; margin: 4px;"><b>11-a-side Soccer Pitches List</b></h2>
       </div>
       <div class="col-sm-6">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-        data-bs-target="#addDatabaseModal" style="background-color: #44abab;"><span><i
-            class="material-icons">&#xE147;</i>Add New Item</span></button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDatabaseModal"
+          style="background-color: #44abab;"><span><i class="material-icons">&#xE147;</i>Add New Item</span></button>
       </div>
     </div>
   </div>
-<form [formGroup]="searchSoccerPitches" (ngSubmit)="onSubmit(searchSoccerPitches.value)" class="ui form">
-  <div class="field">
-    <label for="searchDistrict">{{ searchType }}</label>
-    <div class="search-box">
-      <i class="material-icons">&#xE8B6;</i>
-      <input type="text" id="searchDistrict" formControlName="searchDistrict" placeholder="Search Any Location/District"
-        aria-label="Search">
+  <form [formGroup]="searchSoccerPitches" (ngSubmit)="onSubmit(searchSoccerPitches.value)" class="ui form">
+    <div class="field">
+      <label for="searchDistrict">{{ searchType }}</label>
+
+      <div class="input-group">
+        <div class="search-box">
+          <i class="material-icons">&#xE8B6;</i>
+          <input type="text" id="searchDistrict" formControlName="searchDistrict"
+            placeholder="Search Any Location/District" aria-label="Search">
+        </div>
+        <div class="text-end">
+          <button type="submit" class="ui button">Submit</button>
+          <button (click)="retrieveButtonHandler()" type="submit" class="ui button">Show All</button>
+        </div>
+      </div>
     </div>
 
+
+  </form>
+
+  <!--<div>{{ serverData | json }}</div>-->
+
+  <p></p>
+  <table class="table table-hover">
+    <thead class="table-borderless table-secondary">
+      <tr>
+        <th scope="col">Item</th>
+        <th scope="col">District</th>
+        <th scope="col">Name</th>
+        <th scope="col">Address</th>
+        <th scope="col">Opening Hours</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Remarks</th>
+        <th scope="col">Latitude</th>
+        <th scope="col">Ancillary facilities</th>
+        <th scope="col">Action</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let Pitches of serverDataArr;let row = index">
+        <td>{{ row + 1 }}</td>
+        <td>{{ Pitches.district }}</td>
+        <td>{{ Pitches.name }}</td>
+        <td>{{ Pitches.address }}</td>
+        <td>{{ Pitches.opening_hours }}</td>
+        <td>{{ Pitches.phone }}</td>
+        <td>{{ Pitches.remarks }}</td>
+        <td>{{ Pitches.latitude }}</td>
+        <td>{{ Pitches.ancillary_facilities }}</td>
+
+        <td>
+          <!-- <a href="/edit/{{Pitches.id}}" type="button" class="btn btn-success btn-sm text-white m-1">Edit</a> -->
+          <button class="btn btn-outline-dark btn-lg" type="button" class="btn btn-success btn-sm text-white m-1" (click)="openUpdateNamePopup(row)"> Edit </button>
+          <button type="button" class="btn btn-danger btn-sm" (click)="openDeleteDialog(Pitches.GIHS)" >Delete</button>
+
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+
+</div>
+
+<!--update name modal View-->
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':updateDialogDisplayStyle}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateDatabaseModalLabel">Modify Model</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closePopup()"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">District</span>
+          <input type="text" class="form-control" aria-describedby="basic-addon1" id="modifyDistrict" value="{{selectedName}}"
+            readonly>
+        </div>
+        
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">Name</span>
+          <input type="text" class="form-control" aria-describedby="basic-addon1" id="modifyName">
+        </div>
+      </div>
+
+
+      <form [formGroup]="searchSoccerPitches" (ngSubmit)="updateNameAPICall(searchSoccerPitches.value)" class="ui form">
+        <input type="text" id="updateNameLB" formControlName="newName" placeholder="Enter a new name"
+          style="text-align:Left">
+
+          
+        <div class="modal-footer">
+          <button type="button" type="submit" class="btn btn-primary">
+            Submit
+          </button>
+          <button type="button" class="btn btn-danger" (click)="closePopup()">
+            cancel
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
+</div>
 
-  <button type="submit" class="ui button">Submit</button>
+<!--delete modal View-->
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':removeDialogDisplayStyle}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p> Confirm to remove {{selectedName}} ?</p>
 
-  <button (click)="retrieveButtonHandler()" type="submit" class="ui button">Show All</button>
-
-</form>
-
-<!--<div>{{ serverData | json }}</div>-->
-
-<p></p>
-<table class="table table-hover">
-  <thead class="table-borderless table-secondary">
-    <tr>
-      <th scope="col">Item</th>
-      <th scope="col">District</th>
-      <th scope="col">Name</th>
-      <th scope="col">Address</th>
-      <th scope="col">Opening Hours</th>
-      <th scope="col">Phone</th>
-      <th scope="col">Remarks</th>
-      <th scope="col">Latitude</th>
-      <th scope="col">Ancillary facilities</th>
-      <th scope="col">Action</th>
-
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let Pitches of serverDataArr;let row = index">
-      <td>{{ row + 1 }}</td>
-      <td>{{ Pitches.district }}</td>
-      <td>{{ Pitches.name }}</td>
-      <td>{{ Pitches.address }}</td>
-      <td>{{ Pitches.opening_hours }}</td>
-      <td>{{ Pitches.phone }}</td>
-      <td>{{ Pitches.remarks }}</td>
-      <td>{{ Pitches.latitude }}</td>
-      <td>{{ Pitches.ancillary_facilities }}</td>
-
-      <td>
-        <a href="/edit/{{Pitches.id}}" type="button" class="btn btn-success btn-sm text-white m-1">Edit</a>
-
-        <button (click)="deleteButtonHandler(Pitches.GIHS)" type="button" class="btn btn-danger btn-sm">Delete</button>
-      </td>
-    </tr>
-
-  </tbody>
-</table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" type="submit" class="btn btn-primary" (click)="deleteButtonHandler()">
+          Confirm
+        </button>
+        <button type="button" class="btn btn-danger" (click)="closePopup()">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
