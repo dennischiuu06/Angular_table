@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ServiceModel } from '../Model/serviceModel.model';
-import { TableRecord } from '../Model/tableRecord.model';
+import { ServiceModel } from '../Model/ServiceModel.model';
+import { TableRecord } from '../Model/TableRecord.model';
 
 @Component({
   selector: 'app-update-view',

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
-import { ServiceModel } from '../Model/serviceModel.model';
+import { ServiceModel } from '../Model/ServiceModel.model';
 
 @Component({
   selector: 'app-delete-view',

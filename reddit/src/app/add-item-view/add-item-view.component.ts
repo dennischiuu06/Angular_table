@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ServiceModel } from '../Model/serviceModel.model';
+import { ServiceModel } from '../Model/ServiceModel.model';
 
 @Component({
   selector: 'app-add-item-view',

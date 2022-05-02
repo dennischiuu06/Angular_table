@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ServiceModel } from './Model/serviceModel.model';
-import { TableRecord } from './Model/tableRecord.model';
+import { ServiceModel } from './Model/ServiceModel.model';
+import { TableRecord } from './Model/TableRecord.model';
 
 @Component({
   selector: 'app-root',
