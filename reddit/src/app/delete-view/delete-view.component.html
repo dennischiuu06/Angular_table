@@ -1,0 +1,30 @@
+<!--delete modal View-->
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':removeDialogDisplayStyle}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="updateDatabaseModalLabel">Remove Soccer item</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          (click)="closePopup()"></button>
+      </div>
+
+      <div class="modal-body">
+        <h2>You are about to remove the following {{selectedDistrict}} Pitches</h2>
+
+        <h4>Are you confirm to removing the {{selectedDistrict}} football pitch info item</h4>
+        <p><b><small id="emailHelp" class="form-text text-muted">This item will be deleted immediately, You can't undo
+              this action</small></b></p>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" type="submit" class="btn btn-primary" (click)="deleteButtonHandler()">
+          Confirm
+        </button>
+        <button type="button" class="btn btn-danger" (click)="closePopup()">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

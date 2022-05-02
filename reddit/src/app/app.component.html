@@ -1,20 +1,40 @@
-<!-- <div class="ui two column divided grid">
-  <div class="row">
-    <div class="column">
-      <p>
-        <app-search-panel searchType="By Route" ></app-search-panel>
+<p> </p>
+<div *ngIf="isSuccess" class="ui positive message">
+  <div class="header">You action has been completed </div>
+  <p>{{successMsg}}</p>
+</div>
 
-        <app-search-example></app-search-example>
+<div *ngIf="isError" class="ui negative message">
+  <i class="close icon"></i>
+  <div class="header"> We're encounting some issue</div>
+  <p>{{errorMsg}}</p>
+</div>
 
-      </p>
-    </div>
-</div> -->
+<p>
+  <app-search-panel
+    (deleteEvent)="deleteViewEventReceiver($event)"
+    (addItemEvent)="addItemEventReceiver()"
+    (updateItemEvent)="updateItemEventReceiver($event)"></app-search-panel>
+</p>
 
+<p>
+  <app-delete-view
+    [removeDialogDisplayStyle]="this.removeDialogDisplayStyle" [itemGIHS]="this.itemGIHS"
+    [selectedDistrict]="this.selectedDistrict" (dismissEvent)="dismissEventReceiver($event)">
+  </app-delete-view>
+</p>
 
-    <p>
-      <app-search-panel searchType="By District" ></app-search-panel>
+<p>
+  <app-add-item-view
+    [addDialogDisplayStyle]="this.addDialogDisplayStyle"
+    (dismissAddViewEvent)="dismissAddViewEventReceiver($event)">
+  </app-add-item-view>
+</p>
 
-    </p>
-
-
-
+<p>
+  <app-update-view
+   [updateDialogDisplayStyle]="this.updateDialogDisplayStyle"
+   [tableRecord]="this.tableRecord"
+   (dismissUpdateViewEvent)="dismissUpdateViewEventReceiver($event)"
+   ></app-update-view>
+</p>

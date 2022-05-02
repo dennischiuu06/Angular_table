@@ -1,0 +1,44 @@
+/* Dialog styles */
+.modal .modal-dialog {
+    max-width: 600px;
+}
+
+.modal .modal-header {
+  width: 600px;
+  background: #dddddd;
+}
+.modal .modal-body {
+  background: #fafafa;
+  padding-left: 24px;
+  padding-right: 24px;
+  width: 600px;
+}
+
+.modal .modal-footer {
+  background: #fafafa;
+  padding-left: 32px;
+  padding-right: 32px;
+  width: 600px;
+}
+
+.modal .modal-content {
+    padding-top: -10px;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+
+.modal .modal-title {
+    display: inline-block;
+}
+
+.modal .form-control {
+    border-radius: 2px;
+    box-shadow: none;
+    border-color: #dddddd;
+}
+
+.modal .btn {
+    border-radius: 5px;
+    min-width: 100px;
+}

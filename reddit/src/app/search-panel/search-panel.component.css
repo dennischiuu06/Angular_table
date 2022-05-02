@@ -27,7 +27,7 @@
   margin: -20px -25px 10px;
 }
 
-.table-title .btn {
+.table-title .ui {
   color: #FFFFFF;
   float: right;
   font-size: 14px;
@@ -58,16 +58,20 @@
 
 .modal .modal-header {
   width: 600px;
-  background: #f1f1f1;
+  background: #dddddd;
 }
 .modal .modal-body {
+  background: #fafafa;
+  padding-left: 24px;
+  padding-right: 24px;
   width: 600px;
 }
 
 .modal .modal-footer {
-    padding-left: 32px;
-    padding-right: 32px;
-    width: 500px;
+  background: #fafafa;
+  padding-left: 32px;
+  padding-right: 32px;
+  width: 600px;
 }
 
 .modal .modal-content {
@@ -76,9 +80,6 @@
     font-size: 15px;
 }
 
-.modal .modal-footer {
-    border-radius: 5px;
-}
 
 .modal .modal-title {
     display: inline-block;
@@ -94,3 +95,5 @@
     border-radius: 5px;
     min-width: 100px;
 }
+
+

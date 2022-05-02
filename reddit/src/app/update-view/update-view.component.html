@@ -1,0 +1,86 @@
+<!--update name modal View-->
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':updateDialogDisplayStyle}">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+  
+        <div class="modal-header">
+          <h2 class="modal-title" id="updateDatabaseModalLabel">Modify Soccer info</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="closePopup()"></button>
+        </div>
+  
+        <form [formGroup]="updateSoccerPitches" (ngSubmit)="updateNameAPICall(updateSoccerPitches.value)" class="ui form">
+          <div class="modal-body">
+  
+            <div class="disabled field">
+              <div class="ui labeled input">
+                <div class="ui label"> District</div>
+                <input type="text" class="form-control" aria-describedby="basic-addon1" formControlName="editDistrict"
+                  [ngModel]="selectedUpdateDistrict" readonly>
+              </div>
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+  
+            <div class="field">
+              <div class="ui labeled input">
+                <div class="ui label">Name</div>
+                <input type="text" [ngModel]="selectedUpdateName" class="form-control" id="modifyName"
+                  formControlName="editName" placeholder="Please enter soccer pitches name">
+              </div>
+            </div>
+  
+            <div class="field">
+              <div class="ui labeled input">
+                <div class="ui label">Address</div>
+                <input type="text" [ngModel]="selectedUpdateAddress" class="form-control" id="modifyAddress"
+                  formControlName="editAddress" placeholder="Please enter soccer pitchesaddress info">
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui labeled input">
+                <div class="ui label">Opening Hours</div>
+                <input type="text" [ngModel]="selectedUpdateHours" class="form-control" aria-describedby="basic-addon1"
+                  id="modifyOpeningHours" formControlName="editHours"
+                  placeholder="Please enter soccer pitches opening hours">
+              </div>
+            </div>
+  
+            <div class="field">
+              <div class="ui labeled input">
+                <div class="ui label">Phone Number</div>
+                <input type="text" [ngModel]="selectedUpdatePhone" class="form-control" aria-describedby="basic-addon1"
+                  id="modifyPhoneNumber" formControlName="editPhone"
+                  placeholder="Please enter soccer pitches phone number">
+              </div>
+            </div>
+  
+            <div class="field">
+              <div class="ui labeled input">
+                <div class="ui label">Ancillary facilities</div>
+                <input type="text" class="form-control" aria-describedby="basic-addon1" id="modifyAncillaryFacilities"
+                  formControlName="editAncillary" placeholder="Please enter soccer pitches ancillary info"
+                  [ngModel]="selectedUpdateAncillary">
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui labeled input">
+                <div class="ui label">Remarks</div>
+                <input type="text" class="form-control" aria-describedby="basic-addon1" id="modifyRemarks"
+                  formControlName="editRemarks" placeholder="Please enter any remarks" [ngModel]="selectedUpdateRemarks">
+              </div>
+            </div>
+  
+          </div>
+  
+          <div class="modal-footer">
+            <button type="button" type="submit" class="btn btn-primary">
+              Submit
+            </button>
+            <button type="button" class="btn btn-danger" (click)="closePopup()">
+              cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
