@@ -13,12 +13,13 @@ import { TableRecord } from '../Model/TableRecord.model';
 
 export class SearchPanelComponent implements OnInit {
   searchSoccerPitches: FormGroup;
-  @Input() searchType!: boolean;
   http: HttpClient;
   serverData!: Object | null;
   url!: string;
   serverDataArr: any;
 
+
+  @Input() isSuccess = false;
 
   tableRecord: TableRecord = {
     itemGIHS: "",
@@ -30,6 +31,8 @@ export class SearchPanelComponent implements OnInit {
     phone: "",
     remarks: "",
   };
+  
+  searchEmpty = false;
 
   constructor(fb: FormBuilder, http: HttpClient) {
     this.http = http;
@@ -44,6 +47,12 @@ export class SearchPanelComponent implements OnInit {
     this.retrieveButtonHandler();
   }
 
+  ngOnChanges(): void {
+    if (this.isSuccess) {
+      this.retrieveButtonHandler();
+    }
+  }
+
   @Output() deleteEvent = new EventEmitter<{itemGIHS: string, selectedDistrict: string}>();
   @Output() addItemEvent = new EventEmitter();
   @Output() updateItemEvent = new EventEmitter<TableRecord>();
@@ -54,7 +63,6 @@ export class SearchPanelComponent implements OnInit {
   }
 
   openUpdateNamePopup(formValue: any) {
-    console.log("Update: itemGIHS/" + formValue['GIHS']);
     this.tableRecord.itemGIHS = formValue['GIHS'];
     this.tableRecord.district = formValue['district'];
     this.tableRecord.name = formValue['name'];
@@ -72,19 +80,24 @@ export class SearchPanelComponent implements OnInit {
     this.addItemEvent.emit();
   }
 
-
-
   onSubmit(formValue: any): void {
     this.serverData = null;
-    this.url = "http://localhost/php/index.php/football/" + formValue['searchDistrict'];
+    this.url = "http://localhost/server/index.php/football/" + formValue['searchDistrict'];
 
     this.http.get(this.url).subscribe({
       next: (res) => {
         this.serverData = res;
-        this.serverDataArr = JSON.parse(JSON.stringify(res))
+        this.serverDataArr = JSON.parse(JSON.stringify(res))        
+
+        if (this.serverDataArr.length == 0) {          
+          this.searchEmpty = true;
+        } else {
+          this.searchEmpty = false;
+        }
+
       },
       error: (err) => {
-        this.serverData = "http://localhost/php/index.php/football/" + formValue['searchDistrict'];
+        this.serverData = "http://localhost/server/index.php/football/" + formValue['searchDistrict'];
       }
     }
     );
@@ -92,7 +105,7 @@ export class SearchPanelComponent implements OnInit {
 
   retrieveButtonHandler(): void {
     this.serverData = null;
-    this.url = "http://localhost/php/index.php/football/selectAll";
+    this.url = "http://localhost/server/index.php/football/selectAll";
 
     this.http.get(this.url).subscribe({
       next: (res) => {
@@ -100,7 +113,7 @@ export class SearchPanelComponent implements OnInit {
         this.serverDataArr = JSON.parse(JSON.stringify(res))
       },
       error: (err) => {
-        this.serverData = "http://localhost/php/index.php/football/selectAll";
+        this.serverData = "http://localhost/server/index.php/football/selectAll";
       }
     });
   }

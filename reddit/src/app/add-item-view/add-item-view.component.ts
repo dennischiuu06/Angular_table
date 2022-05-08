@@ -49,13 +49,8 @@ export class AddItemViewComponent implements OnInit {
   addNewItemAPICall(formValue: any): void {
     let genGIHS = btoa(Math.random().toString()).substr(10, 10) || '';
 
-    // if (formValue == null || formValue.courtNumber == 0) {
-    //   this.dismissAddViewEvent.emit();
-    //   return;
-    // }
-
     this.serverData = null;
-    this.url = "http://localhost/php/index.php/football/" + genGIHS + "/" + formValue['newDistrict'] + "/" + formValue['newName'] + "/" + formValue['newAddress'] + "/" + formValue['newHours'] + "/" + formValue['newPhone'] + "/" + formValue['newAncillary'] + "/" + formValue['newRemarks'];
+    this.url = "http://localhost/server/index.php/football/" + genGIHS + "/" + formValue['newDistrict'] + "/" + formValue['newName'] + "/" + formValue['newAddress'] + "/" + formValue['newHours'] + "/" + formValue['newPhone'] + "/" + formValue['newAncillary'] + "/" + formValue['newRemarks'];
     this.addDialogDisplayStyle = "none";
 
     this.http.post(this.url, "").subscribe(
@@ -71,10 +66,10 @@ export class AddItemViewComponent implements OnInit {
         },
         error: (err) => {
           this.serviceModel.code = '500';
-          this.serviceModel.desc = this.serverDataArr['description'];
+          this.serviceModel.desc = 'Techincal error, please can try it again';
 
           this.dismissAddViewEvent.emit(this.serviceModel);
-          this.serverData = "http://localhost/php/index.php/football/" + genGIHS + "/" + formValue['newDistrict'] + "/" + formValue['newName'] + "/" + formValue['newAddress'] + "/" + formValue['newHours'] + "/" + formValue['newPhone'] + "/" + formValue['newAncillary'] + "/" + formValue['newRemarks'];
+          this.serverData = "http://localhost/server/index.php/football/" + genGIHS + "/" + formValue['newDistrict'] + "/" + formValue['newName'] + "/" + formValue['newAddress'] + "/" + formValue['newHours'] + "/" + formValue['newPhone'] + "/" + formValue['newAncillary'] + "/" + formValue['newRemarks'];
         }
       }
     );

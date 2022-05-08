@@ -6,7 +6,7 @@
       </div>
       <div class="col-sm-6">
         <div class="ui teal labeled icon right button" (click)="openAddItemDialog()">
-          Create New Order
+          Create New Record
           <i class="add icon"></i>
         </div>
       </div>
@@ -14,8 +14,6 @@
   </div>
   <form [formGroup]="searchSoccerPitches" (ngSubmit)="onSubmit(searchSoccerPitches.value)" class="ui form">
     <div class="field">
-      <label for="searchDistrict">{{ searchType }}</label>
-
       <div class="input-group">
         <div class="search-box">
           <i class="material-icons">&#xE8B6;</i>
@@ -23,8 +21,11 @@
             placeholder="Search Any Location/District" aria-label="Search">
         </div>
         <div class="text-end">
-          <button type="submit" class="ui button">Submit</button>
-          <button (click)="retrieveButtonHandler()" type="submit" class="ui button">Show All</button>
+          <button type="submit" class="ui teal right labeled icon button">
+            <i class="right search icon"></i>
+            Search
+          </button>
+          <button (click)="retrieveButtonHandler()" class="ui button">Show All</button>
         </div>
       </div>
     </div>
@@ -54,8 +55,8 @@
         <td>{{ Pitches.address }}</td>
         <td>{{ Pitches.opening_hours }}</td>
         <td>{{ Pitches.phone }}</td>
-        <td>{{ Pitches.remarks }}</td>
-        <td>{{ Pitches.ancillary_facilities }}</td>
+        <td [innerHTML]=Pitches.remarks></td>
+        <td [innerHTML]=Pitches.ancillary_facilities></td>
 
         <td class="right aligned">
           <div class="ui small basic icon buttons">
@@ -71,4 +72,14 @@
     </tbody>
   </table>
 
+  <div *ngIf="this.searchEmpty" class="ui icon message">
+    <i class="inbox icon"></i>
+    <div class="content">
+      <div class="header">
+        Your search did not match any docuemnts?
+      </div>
+      <p>Make sure that alll words are spelled correctly</p>
+    </div>
+  </div>
+  
 </div>

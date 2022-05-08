@@ -70,16 +70,9 @@ export class UpdateViewComponent implements OnInit {
   }
 
   updateNameAPICall(formValue: any): void {
-    // if (formValue == null || formValue.courtNumber == 0) {
-    //   // this.showError = 'The new name cannot be empty';
-    //   // this.updateDialogDisplayStyle = "none";
-    //   this.dismissUpdateViewEvent.emit();
-    //   return;
-    // }
-    
     this.serverData = null;
     let gihs = this.selectedUpdateGIHS;
-    this.url = "http://localhost/php/index.php/football/" + gihs + "/" + formValue['editDistrict'] + "/" + formValue['editName'] + "/" + formValue['editAddress'] + "/" + formValue['editHours'] + "/" + formValue['editPhone'] + "/" + formValue['editAncillary'] + "/" + formValue['editRemarks'];
+    this.url = "http://localhost/server/index.php/football/" + gihs + "/" + formValue['editDistrict'] + "/" + formValue['editName'] + "/" + formValue['editAddress'] + "/" + formValue['editHours'] + "/" + formValue['editPhone'] + "/" + formValue['editAncillary'] + "/" + formValue['editRemarks'];
     this.updateDialogDisplayStyle = "none";
 
     this.http.put(this.url, "").subscribe(
@@ -95,12 +88,12 @@ export class UpdateViewComponent implements OnInit {
 
           this.dismissUpdateViewEvent.emit(this.serviceModel);
         },
-        error: (err) => {
+        error: (err) => {   
           this.serviceModel.code = '500';
-          this.serviceModel.desc = this.serverDataArr['description'];
+          this.serviceModel.desc = 'Techincal error, please can try it again';
 
           this.dismissUpdateViewEvent.emit(this.serviceModel);
-          this.serverData = "http://localhost/php/index.php/football/" + gihs + "/" + formValue['editDistrict'] + "/" + formValue['editName'] + "/" + formValue['editAddress'] + "/" + formValue['editHours'] + "/" + formValue['editPhone'] + "/" + formValue['editAncillary'] + "/" + formValue['editRemarks'];
+          this.serverData = "http://localhost/server/index.php/football/" + gihs + "/" + formValue['editDistrict'] + "/" + formValue['editName'] + "/" + formValue['editAddress'] + "/" + formValue['editHours'] + "/" + formValue['editPhone'] + "/" + formValue['editAncillary'] + "/" + formValue['editRemarks'];
         }
       }
     );

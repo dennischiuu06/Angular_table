@@ -14,7 +14,8 @@
   <app-search-panel
     (deleteEvent)="deleteViewEventReceiver($event)"
     (addItemEvent)="addItemEventReceiver()"
-    (updateItemEvent)="updateItemEventReceiver($event)"></app-search-panel>
+    (updateItemEvent)="updateItemEventReceiver($event)"
+    [isSuccess]="this.isSuccess" ></app-search-panel>
 </p>
 
 <p>

@@ -11,7 +11,7 @@ import { TableRecord } from './Model/TableRecord.model';
 export class AppComponent {
   title = 'reddit';
 
-  isSuccess!: boolean;
+  isSuccess = false;
   isError!: boolean;
   successMsg: string = ""
   errorMsg: string = "";
@@ -33,7 +33,6 @@ export class AppComponent {
       this.successMsg = desc;
       setTimeout(() => {
         this.isSuccess = false;
-        window.location.reload();
       }, 3500);
 
     } else if (code == "500") {
@@ -45,20 +44,16 @@ export class AppComponent {
   }
 
   deleteViewEventReceiver(object: any) {
-    console.log("deleteViewEventReceiver!!!!");
     this.itemGIHS = object['itemGIHS'];
     this.selectedDistrict = object['selectedDistrict'];
     this.removeDialogDisplayStyle = "block";
   }
 
   addItemEventReceiver() {
-    console.log("addItemEventReceiver");
-
     this.addDialogDisplayStyle = "block";
   }
 
   updateItemEventReceiver(tableRecord: TableRecord) {
-    console.log("updateItemEventReceiver", tableRecord);
     this.tableRecord = tableRecord
     this.updateDialogDisplayStyle = "block";
   }

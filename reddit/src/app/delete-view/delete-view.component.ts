@@ -37,12 +37,11 @@ export class DeleteViewComponent implements OnInit {
   deleteButtonHandler() {
     this.serverData = null;
 
-    this.url = "http://localhost/php/index.php/football/" + this.itemGIHS;
+    this.url = "http://localhost/server/index.php/football/" + this.itemGIHS;
 
     this.http.delete(this.url).subscribe(
       {
         next: (res) => {
-          console.log(res);
           this.serverData = res;
           this.serverDataArr = JSON.parse(JSON.stringify(res));
 
@@ -53,11 +52,10 @@ export class DeleteViewComponent implements OnInit {
 
         },
         error: (err) => {
-          console.log(err);
           this.serverData = "Failed to call server: " + err;
 
           this.serviceModel.code = '500';
-          this.serviceModel.desc = this.serverDataArr['description'];
+          this.serviceModel.desc = 'Techincal error, please can try it again';
 
           this.dismissEvent.emit(this.serviceModel);
         }
